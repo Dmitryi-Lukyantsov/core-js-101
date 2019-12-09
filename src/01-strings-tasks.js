@@ -162,7 +162,7 @@ function convertToUpperCase(str) {
 
 /**
  * Extracts e-mails from single string with e-mails list delimeted by semicolons
- *!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ *
  * @param {string} str
  * @return {array}
  *
@@ -223,8 +223,22 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const s = str.split('');
+  const input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+  const outpu = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'.split('');
+  let arr = '';
+  s.forEach((el) => {
+    if (el === ' ' || el === '?' || el === '!') {
+      arr += el;
+    }
+    if (input.indexOf(el) >= 0) {
+      const f = outpu[input.indexOf(el)];
+      arr += f;
+    }
+  });
+
+  return arr;
 }
 
 /**
@@ -240,8 +254,12 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  if (value instanceof String || typeof f === 'string') {
+    return true;
+  }
+
+  return false;
 }
 
 
