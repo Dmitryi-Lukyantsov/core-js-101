@@ -530,13 +530,13 @@ function getIdentityMatrix(/* n */) {
  *     3, 3   => [ 3 ]
  */
 function getIntervalArray(start, end) {
-  const arr = [];
-  let count = start;
-  while (arr.indexOf(end) === -1) {
-    arr.push(count);
-    count += 1;
-  }
-  return arr;
+  let el = start - 1;
+  return new Array(end - start + 1)
+    .fill()
+    .map(() => {
+      el += 1;
+      return el;
+    });
 }
 
 /**
@@ -645,8 +645,25 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  let res = arr;
+
+  if (arr.length === 2) return arr.reverse();
+
+  if (arr.length % 2 === 0) {
+    const head = arr.slice(0, arr.length / 2);
+    const tail = arr.slice(arr.length / 2);
+    res = tail.concat(head);
+  }
+
+  if (arr.length % 2 !== 0) {
+    const index = Math.floor(arr.length / 2);
+    const head = arr.slice(0, index);
+    const tail = arr.slice(index + 1);
+
+    res = tail.concat(arr[index], head);
+  }
+  return res;
 }
 
 
