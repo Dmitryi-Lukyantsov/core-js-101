@@ -36,13 +36,13 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-  const arr = [];
-  let b = 1;
-  for (let i = 0; i < len; i += 1) {
-    arr.push(b);
+  const arr = new Array(len).fill();
+  let b = -1;
+  const res = arr.map(() => {
     b += 2;
-  }
-  return arr;
+    return b;
+  });
+  return res;
 }
 
 
@@ -76,10 +76,7 @@ function doubleArray(arr) {
  *    [] => []
  */
 function getArrayOfPositives(arr) {
-  const res = [];
-  arr.forEach((el) => {
-    if (el > 0) res.push(el);
-  });
+  const res = arr.filter((el) => el > 0);
   return res;
 }
 
@@ -95,10 +92,7 @@ function getArrayOfPositives(arr) {
  *    [ 'cat, 'dog', 'raccoon' ] => [ 'cat', 'dog', 'raccoon' ]
  */
 function getArrayOfStrings(arr) {
-  const res = [];
-  arr.forEach((el) => {
-    if (typeof el === 'string') res.push(el);
-  });
+  const res = arr.filter((el) => typeof el === 'string');
   return res;
 }
 
@@ -116,10 +110,7 @@ function getArrayOfStrings(arr) {
  *    [ false, 0, NaN, '', undefined ]   => [ ]
  */
 function removeFalsyValues(arr) {
-  const res = [];
-  arr.forEach((el) => {
-    if (!!el === true) res.push(el);
-  });
+  const res = arr.filter((el) => !!el === true);
   return res;
 }
 
@@ -276,12 +267,7 @@ function getMovingSum(arr) {
  * [ "a" ] => []
  */
 function getSecondItems(arr) {
-  const res = [];
-  arr.forEach((el, i) => {
-    if (i % 2 !== 0) {
-      res.push(el);
-    }
-  });
+  const res = arr.filter((el, i) => i % 2 !== 0);
 
   return res;
 }
@@ -302,12 +288,7 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-  let res = [];
-  arr.forEach((el, i) => {
-    const a = new Array(i + 1).fill(el, 0);
-    res = res.concat(a);
-  });
-  return res;
+  return [].concat(...arr.map((el, i) => new Array(i + 1).fill(el)));
 }
 
 
@@ -346,10 +327,7 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-  let res = 0;
-  arr.forEach((el) => {
-    if (typeof el !== 'string' && el > res) res = el;
-  });
+  const res = arr.filter((el) => typeof el !== 'string' && el > 0).length;
   return res;
 }
 
@@ -395,11 +373,8 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 function getItemsSum(arr) {
-  let res = 0;
-  if (arr.length === 0) return res;
-  arr.forEach((el) => {
-    res += el;
-  });
+  if (arr.length === 0) return 0;
+  const res = arr.reduce((a, b) => a + b);
   return res;
 }
 
@@ -416,14 +391,7 @@ function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 function getFalsyValuesCount(arr) {
-  let count = 0;
-  if (arr.length === 0) return count;
-  arr.forEach((el) => {
-    if (!!el === false) {
-      count += 1;
-    }
-  });
-  return count;
+  return arr.filter((el) => !el).length;
 }
 
 /**
@@ -441,11 +409,8 @@ function getFalsyValuesCount(arr) {
  *    [ true, 0, 1, 'true' ], true => 1
  */
 function findAllOccurences(arr, item) {
-  let count = 0;
-  arr.forEach((el) => {
-    if (el === item) count += 1;
-  });
-  return count;
+  const res = arr.filter((el) => el === item).length;
+  return res;
 }
 
 /**
@@ -636,9 +601,11 @@ function selectMany(arr, childrenSelector) {
  */
 function getElementByIndexes(arr, indexes) {
   let res = arr;
-  indexes.forEach((el) => {
+  indexes.map((el) => {
     res = res[el];
+    return null;
   });
+
   return res;
 }
 
